@@ -9,6 +9,8 @@ i = 0
 impactCount = 4
 random =4
 
+""" Comment from Heather!!"""
+
 def validUrl(url):
 	if url is None:
 		return False
