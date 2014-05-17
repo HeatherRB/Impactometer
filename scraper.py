@@ -3,6 +3,7 @@ from urllib2 import urlopen, URLError
 
 BASE_URL = 'http://www.qmul.ac.uk'
 pages = [BASE_URL]
+impactoccurence = [];
 
 """This way, we can add comments"""
 i = 0
@@ -36,13 +37,14 @@ def urlError(url):
 		print('Something else went wrong')
 		return True
 
-while (i < len(pages)) and (i <= 500): 
-	print(pages[i])
+while (i < len(pages)) and (i <= 100): 
+	# print(pages[i])
 	page = pages[i]
 	i += 1
 	if urlError(page): continue
 	soup = BeautifulSoup(urlopen(page).read(), "lxml")
 	text = soup.get_text()
+	impactoccurence.append((page,text.count('impact')))
 	impactCount += text.count('impact')
 	for link in soup.find_all('a'):
 		url = link.get('href')
