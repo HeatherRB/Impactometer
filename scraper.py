@@ -7,6 +7,7 @@ pages = [BASE_URL]
 """This way, we can add comments"""
 i = 0
 impactCount = 4
+random =4
 
 def validUrl(url):
 	if url is None:
