@@ -4,7 +4,9 @@ from urllib2 import urlopen, URLError
 BASE_URL = 'http://www.qmul.ac.uk'
 pages = [BASE_URL]
 i = 0
-impactCount = 0
+impactCount = 3
+
+""" Comment from Heather!!"""
 
 def validUrl(url):
 	if url is None:
