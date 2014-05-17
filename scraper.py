@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen, URLError
 
-BASE_URL = 'http://www.qmul.ac.uk/index.html'
+BASE_URL = 'http://www.geog.qmul.ac.uk/index.html'
 pages = [BASE_URL]
 impactoccurence = [];
 
@@ -16,7 +16,7 @@ def validUrl(url):
 		return False
 	elif (url.find('@') >= 0):
 		return False
-	elif (url.find('qmul.ac.uk') >= 0):
+	elif (url.find('geog.qmul.ac.uk') >= 0):
 		if (url.find('.html') >= 0) or (url[-1:0]=='/'):
 			return True
 	else:
@@ -24,14 +24,14 @@ def validUrl(url):
 
 """ convert url to standard format """
 def cleanUrl(url):
-    """ replace spaces with %20 """
+	""" replace spaces with %20 """
 	url_clean = url.replace(' ','%20')
-    """ add /index.html where necessary """
-    if (url[-1:0]=='/'):
-        url_clean += 'index.html'
-    elif (url[-5:0].find('.') == -1):
-        url_clean += '/index.html'
-    return url_clean
+	""" add /index.html where necessary """
+	if (url[-1:]=='/'):
+		url_clean += 'index.html'
+	elif (url[-5:].find('.') == -1):
+		 url_clean += '/index.html'
+	return url_clean
 
 """ check if page loads """
 def urlError(url):
@@ -47,16 +47,16 @@ def urlError(url):
 
 """ assign url to a subdomain """
 def urlDomain(url):
-    """ check which subdomain the url belongs to """
-    firstDot = url.find('.')
-    secondDot = url.find('.', firstDot+1, len(url))
-    qmul = url.find('qmul')
-    if (url[firstDot+1:secondDot]=='qmul'):
-        return 'root'
-    elif:
-        return url[firstDot+1:secondDot]
+	""" check which subdomain the url belongs to """
+	firstDot = url.find('.')
+	secondDot = url.find('.', firstDot+1, len(url))
+	qmul = url.find('qmul')
+	if (url[firstDot+1:secondDot]=='qmul'):
+		return 'root'
+	else:
+		return url[firstDot+1:secondDot]
 
-while (i < len(pages)) and (i <= 500): 
+while (i < len(pages)) and (i <= 20): 
 	print(pages[i])
 	page = pages[i]
 	i += 1
@@ -67,10 +67,12 @@ while (i < len(pages)) and (i <= 500):
 	impactCount += text.count('impact')
 	for link in soup.find_all('a'):
 		url = link.get('href')
-		for oldUrl in pages:
-			if url == oldUrl:
-				break
-		else:
-			if validUrl(url):
-				pages = pages + [cleanUrl(url)]
+		if validUrl(url):
+			url = cleanUrl(url)
+			for oldUrl in pages:
+				if url == oldUrl:
+					break
+			else:
+				#if validUrl(url):
+				pages = pages + [url]
 print(impactCount)
