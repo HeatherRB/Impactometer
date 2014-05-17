@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen, URLError
 
-BASE_URL = 'http://www.qmul.ac.uk'
+BASE_URL = 'http://www.qmul.ac.uk/index.html'
 pages = [BASE_URL]
 impactoccurence = [];
 
@@ -10,8 +10,7 @@ i = 0
 impactCount = 4
 random =4
 
-""" Comment from Heather!!"""
-
+""" check if url is valid (no email addresses, pdfs, etc.) """
 def validUrl(url):
 	if url is None:
 		return False
@@ -23,22 +22,42 @@ def validUrl(url):
 	else:
 		return False
 
+""" convert url to standard format """
 def cleanUrl(url):
-	return url.replace(' ','%20')
+    """ replace spaces with %20 """
+	url_clean = url.replace(' ','%20')
+    """ add /index.html where necessary """
+    if (url[-1:0]=='/'):
+        url_clean += 'index.html'
+    elif (url[-5:0].find('.') == -1):
+        url_clean += '/index.html'
+    return url_clean
 
+""" check if page loads """
 def urlError(url):
 	try:
 		urlopen(url)
 		return False
 	except URLError as e:
-		print('URLError')
+		print('URLError ' + url)
 		return True
 	except:
 		print('Something else went wrong')
 		return True
 
-while (i < len(pages)) and (i <= 100): 
-	# print(pages[i])
+""" assign url to a subdomain """
+def urlDomain(url):
+    """ check which subdomain the url belongs to """
+    firstDot = url.find('.')
+    secondDot = url.find('.', firstDot+1, len(url))
+    qmul = url.find('qmul')
+    if (url[firstDot+1:secondDot]=='qmul'):
+        return 'root'
+    elif:
+        return url[firstDot+1:secondDot]
+
+while (i < len(pages)) and (i <= 500): 
+	print(pages[i])
 	page = pages[i]
 	i += 1
 	if urlError(page): continue
