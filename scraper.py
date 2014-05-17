@@ -3,8 +3,10 @@ from urllib2 import urlopen, URLError
 
 BASE_URL = 'http://www.qmul.ac.uk'
 pages = [BASE_URL]
+
+"""This way, we can add comments"""
 i = 0
-impactCount = 3
+impactCount = 4
 
 """ Comment from Heather!!"""
 
