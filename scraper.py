@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen, URLError
 
-BASE_URL = 'http://www.maths.qmul.ac.uk'
+BASE_URL = 'http://www.qmul.ac.uk'
 pages = [BASE_URL]
 i = 0
 impactCount = 0
@@ -11,7 +11,7 @@ def validUrl(url):
 		return False
 	elif (url.find('@') >= 0):
 		return False
-	elif (url.find('maths.qmul.ac.uk') >= 0):
+	elif (url.find('qmul.ac.uk') >= 0):
 		if (url.find('.html') >= 0) or (url[-1:0]=='/'):
 			return True
 	else:
